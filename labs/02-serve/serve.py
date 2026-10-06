@@ -67,6 +67,8 @@ def main() -> int:
     print(f"\n  {' '.join(cmd)}\n")
 
     try:
+        if sys.platform == "win32":
+            return subprocess.run(cmd, check=False).returncode
         os.execv(cmd[0], cmd)          # hand the terminal over; Ctrl-C stops the server
     except OSError:
         return subprocess.run(cmd, check=False).returncode
